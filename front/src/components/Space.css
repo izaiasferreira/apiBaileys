@@ -1,0 +1,32 @@
+.space-container-normal-horizontal{
+  display: flex;
+  align-items: center;
+  justify-items: center;
+}
+.space-container-normal-horizontal{
+  width: 100%;
+  height: 1rem;
+}
+.space-container-large-horizontal{
+  width: 100%;
+  height: 2rem;
+}
+
+.space-container-small-horizontal{
+  width: 100%;
+  height: .3rem;
+}
+
+.space-container-normal-vertical{
+  width: 1rem;
+  height: 100%;
+}
+.space-container-large-vertical{
+  width: 2rem;
+  height: 100%;
+}
+
+.space-container-small-vertical{
+  width: .3rem;
+  height: 100%;
+}

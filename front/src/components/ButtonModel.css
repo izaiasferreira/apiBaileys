@@ -1,0 +1,104 @@
+.button-container-model {
+  margin: .5rem;
+}
+
+.button-container-model button {
+  cursor: pointer;
+  padding: .5rem;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  width: 15rem;
+  height: 5rem;
+  justify-content: center;
+  font-weight: 500;
+  padding: .5rem;
+   transition: .3s;
+}
+
+.button-container-model i {
+  font-size: 15pt;
+  margin-left: .3rem;
+  margin-right: .3rem;
+  font-weight: 500;
+   transition: .3s;
+}
+
+.button-container-model .primary {
+  background-color: var(--tree-color);
+  color: var(--text-color-two);
+  border: none;
+  transition: .3s;
+}
+
+.button-container-model .primary:hover {
+  background-color: var(--five-color);
+  color: var(--text-color-one);
+  transition: .3s;
+}
+
+.button-container-model .circle-primary {
+  background-color: var(--tree-color);
+  color: var(--text-color-two);
+  border: none;
+  transition: .3s;
+}
+
+.button-container-model .circle-primary:hover {
+  background-color: var(--four-color);
+  color: var(--text-color-one);
+  transition: .3s;
+}
+
+.button-container-model .circle-secoundary {
+  background-color: var(--two-color);
+  color: var(--text-color-tree);
+  border: none;
+  transition: .3s;
+}
+
+.button-container-model .circle-secoundary:hover {
+  background-color: var(--five-color);
+  transition: .3s;
+}
+
+
+.button-container-model .secoundary {
+  background-color: var(--two-color);
+  color: var(--text-color-two);
+  border: none;
+  transition: .3s;
+}
+
+.button-container-model .secoundary:hover {
+  background-color: var(--four-color);
+  color: var(--text-color-one);
+   transition: .3s;
+}
+
+.button-container-model .clean {
+  background-color: rgba(255, 255, 255, 0);
+  color: var(--text-color-one);
+  border: none;
+   transition: .3s;
+}
+
+.button-container-model .clean:hover {
+  background-color: rgba(255, 255, 255, 0);
+  color: var(--tree-color);
+   transition: .3s;
+}
+
+.button-container-model .outliner {
+  background-color: rgba(255, 255, 255, 0);
+  color: var(--text-color-one);
+  border: none;
+   transition: .3s;
+}
+
+.button-container-model .outliner:hover {
+  background-color: rgba(255, 255, 255, 0);
+  color: var(--tree-color);
+  border-bottom: 1px solid var(--tree-color);
+   transition: .3s;
+}

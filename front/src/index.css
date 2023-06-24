@@ -1,0 +1,36 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+
+.root {
+  --one-color: #ffff;
+  --two-color: #eeeeee;
+  --tree-color: #0090c9;
+  --danger-color: #c92e50;
+  --four-color: #e6e6e6;
+  --five-color: #d0d0d0;
+  --six-color: rgb(239, 239, 239);
+  --text-color-one: #666666;
+  --text-color-two: #ffff;
+  --text-color-tree: #00acbf;
+  --black-color: #002b2a;
+  --aditional-color-1: #00BC50;
+  --background-color: #779cff;
+  --background-message-area: linear-gradient(106deg, rgba(207, 231, 255, 1) 0%, rgba(244, 251, 255, 1) 100%);
+  --contact-selected: linear-gradient(106deg, rgba(207, 231, 255, 1) 0%, rgba(244, 251, 255, 1) 100%);
+  --background-color-modal: rgba(0, 0, 0, 0.1);
+  --selected-color: #94b2ff;
+  width: 100%;
+  height: 100vh;
+}

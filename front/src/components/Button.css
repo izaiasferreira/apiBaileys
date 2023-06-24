@@ -1,0 +1,74 @@
+.button-container {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin: 5px;
+  transition: .7s;
+}
+
+.button-container label {
+  padding: .3rem;
+  color: var(--text-color-one);
+  font-size: 11pt;
+  cursor: pointer;
+}
+
+.button-container .button-container-disable {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 1.8rem;
+  height: 1rem;
+  background-color: var(--one-color);
+  border: 1px solid var(--five-color);
+  margin: 5px;
+  border-radius: 999px;
+  transition: .7s;
+  /* animation-duration: 1s;
+  animation-name: eraser; */
+}
+
+.button-container .button-container-active {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 1.8rem;
+  height: 1rem;
+  background-color: var(--four-color);
+  border: 1px solid var(--five-color);
+  margin: 5px;
+  border-radius: 999px;
+  transition: .7s;
+}
+
+.button-circle-active {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background-color: var(--tree-color);
+  width: 1rem;
+  height: 1rem;
+  right: 0;
+  border-radius: 999px;
+  transition: .7s;
+}
+
+
+.button-circle-disable {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background-color: var(--five-color);
+  width: 1rem;
+  height: 1rem;
+  border-radius: 999px;
+  transition: .7s;
+}
+
+.button-container i {
+  font-size: 8pt;
+  color: var(--text-color-two);
+  transition: .7s;
+}

@@ -1,0 +1,162 @@
+.home-container {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  background-color: var(--tree-color);
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  text-align: center;
+  overflow: none;
+  height: 100%;
+}
+
+.header {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.header .images {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header .images span {
+  font-weight: 900;
+  font-size: 3rem;
+  color: var(--tree-color);
+}
+
+.header .images img {
+  width: 5rem;
+}
+
+.body {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.body .form {
+  width: 100%;
+}
+
+.footer {
+  width: 100%;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 10pt;
+
+}
+
+.footer a {
+  text-decoration: none;
+  color: var(--tree-color);
+  font-weight: 700;
+}
+
+/*===================================QR CODE=========================================================*/
+
+.qrcode-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0px;
+  margin: 10PX;
+  max-width: 300px;
+}
+
+.qrcode-content .title {
+  padding: 5px;
+  text-align: center;
+  color: var(--text-color-one);
+  border-radius: 3px;
+  font-size: 12pt;
+  max-width: 90%;
+}
+
+.qrcode-content .text {
+  padding: 5px;
+  text-align: center;
+  color: var(--text-color-two);
+  background-color: var(--tree-color);
+  border-radius: 3px;
+  font-size: 10pt;
+  max-width: 90%;
+}
+
+.qrcode-content .text-steps {
+  padding: 5px;
+  text-align: center;
+  color: var(--text-color-one);
+  margin-bottom: 5px;
+  border-radius: 3px;
+  font-size: 10pt;
+  max-width: 90%;
+}
+
+.qrcode-content .text-min {
+  padding: 5px;
+  text-align: center;
+  color: var(--text-color-one);
+  border-radius: 3px;
+  font-size: 9pt;
+  opacity: .8;
+  max-width: 90%;
+  padding: 10px;
+}
+
+.qrcode-content .text-min a {
+  color: var(--tree-color);
+  opacity: 1;
+}
+
+.qrcode-image {
+  padding: 10px;
+  background-color: white;
+  border-radius: 5px;
+}
+
+.logo-qrcode {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-qrcode img {
+  position: absolute;
+  top: 43%;
+  width: 50px;
+}
+
+.cat-icon {
+  width: 50%;
+  animation-duration: 0.3s;
+  animation-name: eraser;
+}
+
+.qr-code-default {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 335px;
+  width: 295px;
+}
+
+.qr-code-default .text {
+  font-size: 13pt;
+  font-weight: 500;
+  padding: 10px;
+}

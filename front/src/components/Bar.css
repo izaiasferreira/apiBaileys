@@ -1,0 +1,28 @@
+.bar-container-vertical{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.bar-container-horizontal{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.vertical-bar{
+  width: .01rem;
+  height: 80%;
+  background-color: var(--text-color-one);
+  border-radius: 5px;
+  opacity: .3;
+}
+
+.horizontal-bar{
+  width: 85%;
+  height: .01rem;
+  background-color: var(--text-color-one);
+  border-radius: 5px;
+  opacity: .3;
+}

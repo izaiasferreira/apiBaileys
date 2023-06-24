@@ -1,0 +1,35 @@
+.float-box-container {
+  z-index: 9;
+  position: fixed;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  max-width: 25rem;
+  padding: .5rem;
+  background-color: var(--two-color);
+  animation: sizeIn .5s;
+  box-shadow: 7px 10px 8px 0px var(--background-color-modal);
+  border-radius: .5rem;
+}
+
+.disable {
+  display: none;
+}
+
+.background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 8;
+  width: 100vw;
+  height: 100vh;
+}
+
+.children {
+  flex-wrap: wrap;
+  overflow: hidden;
+  width: 100%;
+  animation-name: eraser;
+  animation-duration: 1s;
+}

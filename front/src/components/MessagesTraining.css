@@ -1,0 +1,7 @@
+.messages-raining-container {
+  background-color: var(--four-color);
+  width: 30rem;
+  min-height: 30rem;
+  padding: 2rem;
+}
+

@@ -1,0 +1,42 @@
+.input-text-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.input-text-container .normal-size {
+    height: 1rem;
+}
+
+.input-text-container .large-size {
+    height: 2rem;
+}
+
+
+.input-text-container .normal {
+    width: 100%;
+    border: none;
+    border-radius: .5rem;
+    outline: none;
+    padding: .5rem 3rem .5rem .7rem;
+    margin: .5rem;
+    background-color: var(--two-color);
+    color: var(--text-color-one);
+    opacity: .9;
+}
+
+.input-text-container .clean {
+    width: 100%;
+    padding: .5rem;
+    outline: none;
+    background-color: rgba(255, 255, 255, 0);
+    color: var(--text-color-one);
+    border: none;
+    border-bottom: 2px solid var(--tree-color);
+}
+
+.input-text-container input::placeholder {
+    color: var(--text-color-one);
+    opacity: .4;
+}

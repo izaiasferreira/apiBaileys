@@ -1,0 +1,56 @@
+.input-text-area-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-text-area-container .normal {
+    height: 5rem;
+    min-height: 3rem;
+    border: none;
+    border-radius: .5rem;
+    outline: none;
+    padding: .5rem 3rem .5rem .7rem;
+    margin: .5rem;
+    background-color: var(--two-color);
+    color: var(--text-color-one);
+    font-family: sans-serif;
+    opacity: .9;
+}
+
+.input-text-area-container .clean {
+    height: 5rem;
+    min-height: 3rem;
+    padding: .5rem;
+    outline: none;
+    background-color: rgba(255, 255, 255, 0);
+    color: var(--text-color-one);
+    border: none;
+    border-bottom: 2px solid var(--tree-color);
+}
+
+.input-text-area-container textarea::placeholder {
+    color: var(--text-color-one);
+    opacity: .4;
+    font-family: sans-serif;
+}
+
+
+
+.input-text-area-container .icon-to-input {
+    position: absolute;
+    right: 1rem;
+    z-index: 1;
+    height: 1.5rem;
+    width: 1.5rem;
+    cursor: pointer;
+}
+
+.input-text-area-container .icon-to-input i {
+    font-size: 15pt;
+    padding: .3rem;
+    font-weight: 700;
+    opacity: .6;
+    animation-name: eraserIconSeach;
+    animation-duration: .5s;
+}

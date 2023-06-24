@@ -1,0 +1,56 @@
+.icon-button-container-normal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin: .2rem;
+  border-radius: 50rem;
+  width: 2rem;
+  height: 2rem;
+  opacity: .7;
+  border-radius: 50rem;
+}
+.icon-button-container-normal:hover, .icon-button-container-normal .body i {
+  color: var(--text-color-one);
+  opacity: 1;
+}
+
+.icon-button-container-secoudary-circle {
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+  margin: .2rem;
+  border-radius: 50rem;
+  width: 2rem;
+  height: 2rem;
+  opacity: .7;
+  border-radius: 50rem;
+  background-color: var(--two-color);
+}
+.icon-button-container-secoudary-circle:hover, .icon-button-container-secoudary-circle .body i {
+  color: var(--text-color-one);
+  opacity: 1;
+}
+
+.icon-button-container-normal .body, .icon-button-container-secoudary-circle .body {
+  display: flex;
+  align-items: center;
+}
+
+.icon-button-container-normal .large i, .icon-button-container-secoudary-circle .large i {
+  font-size: 40pt;
+  color: white;
+}
+
+.icon-button-container-normal .normal i, .icon-button-container-secoudary-circle .normal i {
+  font-size: 19pt;
+}
+
+.icon-button-container-normal .small i, .icon-button-container-secoudary-circle .small i {
+  font-size: 15pt;
+}
+
+.disable-icon-button{
+  opacity: .5;
+  cursor: no-drop;
+}

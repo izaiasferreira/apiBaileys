@@ -1,0 +1,15 @@
+.input-select-container {
+    display: flex;
+    align-items: center;
+    min-width: 4rem;
+}
+
+.input-select-container select {
+    width: 100%;
+    height: 2rem;
+    padding: .5rem;
+    outline: none;
+    background-color: var(--one-color);
+    border: none;
+    color: var(--text-color-one);
+}
