@@ -9,15 +9,13 @@ import QRCodeComp from "react-qr-code";
 import { Ring, Waveform } from '@uiball/loaders'
 import axios from 'axios';
 export default function Home() {
-  console.log(new URL(window.location.href).origin);
-  const backUrl = new URL(window.location.href).origin//`http://localhost:${backPort}` //`http://baileysapi.izaiasferreira.com.br`
+  const backUrl = new URL(window.location.href).origin /* `http://localhost:3001` */
   const socket = io(backUrl);
   const [connection, setConnection] = useState('disconnected')
   useEffect(() => {
 
     axios.get(`${backUrl}/statusConnection`).then(response => {
-
-      if (response.data && response.data === '') {
+      if (response.data) {
         setConnection(response.data)
       }
 
@@ -31,6 +29,7 @@ export default function Home() {
     window.location.reload()
   })
   socket?.on('statusConnection', (status) => {
+    console.log(status);
     setConnection(status)
   })
   socket?.off('notification').on('notification', (message) => {

@@ -6,12 +6,10 @@ const app = express();
 const { createServer } = require("http");
 const { Server } = require("socket.io");
 const httpServer = createServer(app);
-const fs = require('fs');
 const Baileys = require('./class/InstanceBaileys')
 const globalVars = require('./globalVars')
 const path = require('path')
 const publicDirectoryPath = path.join(__dirname, './public')
-const { checkPathExist } = require('./utils/check');
 const port = 3000
 
 globalVars.io = new Server(httpServer, {
@@ -40,8 +38,7 @@ app.get('/instances', (req, res) => {
 });
 app.get('/statusConnection', (req, res) => {
     if (globalVars.instances) {
-        res.status(200).json(globalVars?.instances?.statusConnection)
-
+        res.status(200).json(globalVars?.instances._statusConnection)
     } else {
         res.status(400).end()
     }
@@ -126,9 +123,7 @@ app.post('/sendMessageDocument', async (req, res) => {
 
 
 app.post('/sendMessageResponseText', async (req, res) => {
-
     var data = req.body
-
     if (globalVars.instances && data?.id && data?.text && data?.msg) {
         var response = await globalVars.instances.sendMessageResponseText(data.id, data.text, data.msg)
         res.status(200).json(response).end()
@@ -137,9 +132,7 @@ app.post('/sendMessageResponseText', async (req, res) => {
     }
 });
 app.post('/sendMessageResponseImage', async (req, res) => {
-
     var data = req.body
-
     if (globalVars.instances && data?.id && data?.url && data?.msg) {
         var response = await globalVars.instances.sendMessageResponseImage(data.id, data.text || null, data.url, data.msg)
         res.status(200).json(response).end()
@@ -148,9 +141,7 @@ app.post('/sendMessageResponseImage', async (req, res) => {
     }
 });
 app.post('/sendMessageResponseSticker', async (req, res) => {
-
     var data = req.body
-
     if (globalVars.instances && data?.id && data?.url && data?.msg) {
         var response = await globalVars.instances.sendMessageResponseSticker(data.id, data.url, data.msg)
         res.status(200).json(response).end()
@@ -159,9 +150,7 @@ app.post('/sendMessageResponseSticker', async (req, res) => {
     }
 });
 app.post('/sendMessageResponseAudio', async (req, res) => {
-
     var data = req.body
-
     if (globalVars.instances && data?.id && data?.url && data?.msg && data?.isNew) {
         var response = await globalVars.instances.sendMessageResponseAudio(data.id, data.url, data.isNew || false, data.msg)
         res.status(200).json(response).end()
@@ -170,7 +159,6 @@ app.post('/sendMessageResponseAudio', async (req, res) => {
     }
 });
 app.post('/sendMessageResponseVideo', async (req, res) => {
-
     var data = req.body
     if (globalVars.instances && data?.id && data?.url && data?.msg) {
         var response = await globalVars.instances.sendMessageResponseVideo(data.id, data.text || null, data.url, data.isGif || false, data.msg)
@@ -190,7 +178,6 @@ app.post('/sendMessageResponseDocument', async (req, res) => {
 });
 
 app.post('/deleteMessage', async (req, res) => {
-
     const { id, msg, type } = req.body
     if (globalVars.instances && msg && msg.msg && type && id) {
         var response = await globalVars.instances.deleteMessage(id, msg.msg, type)

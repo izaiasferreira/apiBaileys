@@ -5,38 +5,10 @@ const { checkPath } = require('../utils/check.js')
 const P = require('pino')
 const fs = require('fs')
 
-const { Configuration, OpenAIApi } = require("openai");
 const globalVars = require('../globalVars.js');
 
-var openai = null;
-
-
-const natural = require('natural');
-const { default: axios } = require('axios');
-
-// Cadastro de perguntas e respostas personalizadas
-const faq = [
-    {
-        question: 'Você pode me ajudar?',
-        answer: 'Claro, com o que você quer que eu te ajude?.',
-    },
-    {
-        question: 'Qual a localização da loja?',
-        answer: 'Estamos na Av. Joaqui Nelson, 514 - Centro, Rio de Janeiro, RJ, Brasil.',
-    },
-    {
-        question: 'Vocês fazem entrega?',
-        answer: 'Sim, nos fazemos entrega.',
-    },
-    {
-        question: 'Qual o preço do armário?',
-        answer: 'O preço é R$ 100,00.',
-    }
-    // adicione mais perguntas e respostas personalizadas aqui...
-];
-
 class Baileys {
-    constructor(name, id, config) {
+    constructor(name, id) {
         this._name = name
         this._id = id
         this._locationFileAuth = './sessionsWA/'
@@ -46,9 +18,6 @@ class Baileys {
         this._phoneNumber = null
         this._countQRCode = 0
         this._countReconnect = 0
-        this.config = new Configuration(config)
-        this._allowResponseGPT = true
-        this._allowResponseGPTQuestion = true
     }
 
     async connectOnWhatsapp() {
@@ -122,8 +91,6 @@ class Baileys {
             if (connection === 'open') {
                 this._phoneNumber = this._sock.user.id.substring(0, 12)
                 console.log('O NÚMERO ', this._phoneNumber, ' FOI CONECTADO AO WHATSAPP')
-                //this.sockEvents()
-                //fs.writeFileSync('../sessionsDB/sessions.json', JSON.stringify({ name: this._name, id: this._id }))
                 this._countQRCode = 0
                 this._statusConnection = 'connected'
                 globalVars.io.emit('statusConnection', 'connected')
@@ -144,50 +111,6 @@ class Baileys {
             globalVars.io.emit('statusConnection', 'disconnected')
         }
     }
-
-    async sockEvents() {
-        openai = new OpenAIApi(this.config);
-        this._sock.ev.on('messages.upsert', async ({ messages }) => {
-            const msg = messages[0]
-            const jid = msg.key.remoteJid
-            if (msg.message) {
-                const messageType = Object?.keys(msg.message)[0]
-                var messageClient = getTextMessage(msg)
-                if (messageClient?.includes('#pause')) {
-                    this._allowResponseGPT = !this._allowResponseGPT
-                    this.sendMessageText(jid, !this._allowResponseGPT ? 'GPT Paused' : 'GPT Resumed')
-                } else if (messageClient?.includes('#gpt')) {
-                    this._allowResponseGPTQuestion = !this._allowResponseGPTQuestion
-                    this.sendMessageText(jid, !this._allowResponseGPTQuestion ? 'GPTQuestion Paused' : 'GPTQuestion Resumed')
-                } else {
-                    if (msg && jid !== 'status@broadcast' && msg.hasOwnProperty('message') && this._allowResponseGPT) { //caso precise adiciona  && msg.type === "notify"
-                        if (['extendedTextMessage', 'conversation'].includes(messageType) && !jid.includes("@g.us") && !msg.key.fromMe) {
-                            if (messageClient?.includes('#image')) {
-                                this.generateImages(messageClient, jid)
-                            } else {
-                                var response //= await answerQuestion(messageClient, this._allowResponseGPTQuestion);
-                                response = await getDavinciResponse(messageClient)
-                                if (response) await this.sendMessageText(jid, response)
-                            }
-                        }
-                        if (['extendedTextMessage', 'conversation'].includes(messageType) && !jid.includes("@g.us") && !msg.key.fromMe) {
-                            var messageClient = getTextMessage(msg)
-                            if (messageClient.includes('#image')) {
-                                this.generateImagesGroup(messageClient, jid, msg)
-                            }
-                            if (messageClient.includes('#chat')) {
-                                var index = messageClient.indexOf('#chat')
-                                var response = await getDavinciResponse(messageClient.substring(index, messageClient.length))
-                                this.sendMessageResponseText(jid, response, msg)
-                            }
-                        }
-                    }
-                }
-
-            }
-        })
-    }
-
     async getProfilePic(jid) {
         return await this._sock.profilePictureUrl(jid, 'image')
     }
@@ -358,165 +281,10 @@ class Baileys {
             return value[0]
         }
     }
-    async generateImagesGroup(messageClient, jid, msg) {
-        var index = messageClient.indexOf('#image')
-        var responseImg = await getDalleResponse(messageClient.substring(index, messageClient.length))
-        if (responseImg.error) {
-            this.sendMessageResponseText(jid, "Não foi possivel gerar a imagem, tente de novo", msg)
-        } else {
-            this.sendMessageResponseText(jid, `*Imagens geradas:*`, msg).then(() => {
-                for (let indexx = 0; indexx < responseImg.length; indexx++) {
-                    this.sendMessageImage(jid, null, responseImg[indexx])
-                }
-            }).catch(error => console.log("error :", error))
-        }
-    }
-    async generateImages(messageClient, jid) {
-        var index = messageClient.indexOf('#image')
-        var responseImg = await getDalleResponse(messageClient.substring(index, messageClient.length))
-        if (responseImg.error) {
-            this.sendMessageText(jid, "Não foi possivel gerar a imagem, tente de novo")
-        } else {
-            this.sendMessageText(jid, `*Imagens geradas:*`).then(() => {
-                for (let indexx = 0; indexx < responseImg.length; indexx++) {
-                    this.sendMessageImage(jid, null, responseImg[indexx])
-                }
-            }).catch(error => console.log("error :", error))
-        }
-    }
-    updateAllowResponseGPT(value) {
-        this._allowResponseGPT = value
-    }
 }
 
 module.exports = Baileys;
 
-
-
-function getTextMessage(msg) {
-    if (!msg) return null
-    var test = Object.keys(msg.message)
-    if (test.findIndex(obj => obj === "extendedTextMessage") !== -1) {
-        return msg.message.extendedTextMessage.text
-    }
-    if (test.findIndex(obj => obj === "conversation") !== -1) {
-        return msg.message.conversation
-    }
-}
-
-const getDavinciResponse = async (clientText) => {
-    const options = {
-        model: "text-davinci-003", // Modelo GPT a ser usado
-        prompt: clientText, // Texto enviado pelo usuário
-        temperature: 1, // Nível de variação das respostas geradas, 1 é o máximo
-        max_tokens: 4000 // Quantidade de tokens (palavras) a serem retornadas pelo bot, 4000 é o máximo
-    }
-
-    try {
-        const response = await openai.createCompletion(options)
-        let botResponse = ""
-        response.data.choices.forEach(({ text }) => {
-            botResponse += text
-        })
-        return `${botResponse.trim()}`
-    } catch (e) {
-        if (e.response.status === 400) {
-            return "Como eu sou uma inteligência artificial e ainda estou aprendendo, pode me fazer a mesma pergunta, porém usando menos palavras?."
-        }
-        else if (e.response.status === 401) {
-            globalVars.io.emit('error', "As credenciais OpenAi não estão corretas, tente reconectar novamente.")
-            return "Infelizmente não entendi sua pergunta, acho que estou com um problema interno, por favor tente mais tarde."
-        }
-        else { return `❌ Erro OpenAI: ${e}` }
-    }
-}
-
-const getDalleResponse = async (clientText) => {
-    const options = {
-        prompt: clientText, // Descrição da imagem
-        n: 4, // Número de imagens a serem geradas
-        size: "1024x1024", // Tamanho da imagem
-    }
-
-    try {
-        const response = await openai.createImage(options);
-        return response.data.data.map(data => {
-            return data.url
-        })
-    } catch (e) {
-        return { error: true, text: `Não foi possível gerar, tente de novo.` }
-    }
-}
-
-
-
-// Normaliza a pergunta do usuário
-function normalizeQuestion(question) {
-    // Tokeniza a pergunta em palavras
-    const tokenizer = new natural.WordTokenizer();
-    const tokens = tokenizer.tokenize(question);
-
-    // Remove stopwords e realiza a lematização das palavras
-    const stemmer = natural.PorterStemmerPt;
-    const stopwords = natural.stopwords;
-    const normalizedTokens = tokens
-        .filter(token => !stopwords.includes(token))
-        .map(token => stemmer.stem(token));
-
-    // Junta as palavras normalizadas em uma única string
-    return normalizedTokens.join(' ');
-}
-
-// Verifica se a pergunta do usuário corresponde a uma das perguntas cadastradas
-async function matchQuestion(question, questions) {
-    const normalizedQuestion = normalizeQuestion(question);
-
-    for (let index = 0; index < questions.length; index++) {
-        // console.log(questions);
-        const normalizedCadastrada = normalizeQuestion(/* removeWordsQuestion( */questions[index]/* ) */);
-        if (normalizedCadastrada.length > 1) {
-            var context = natural.JaroWinklerDistance(normalizedQuestion.toString(), normalizedCadastrada.toString(), { caseSensitive: false })
-            const regex = new RegExp(normalizedCadastrada, 'i');
-            if (regex.test(normalizedQuestion) || context > 0.7) {
-                return { index: index };
-            }
-        }
-    }
-    questions.unshift(question)
-    // console.log(questions);
-    var response = await axios.post('https://izaias-anatel-bert-augmented-pt-anatel.hf.space/run/predict', {
-        data: questions
-    }).catch(error => console.log("error :", error.status))
-    console.log(response?.data.data);
-
-    return false;
-}
-
-// Responde às perguntas do usuário
-async function answerQuestion(question, allowResponseGPTQuestion) {
-    // Verifica se a pergunta do usuário corresponde a uma das perguntas cadastradas
-    var test = await matchQuestion(removeWordsQuestion(question), faq.map(item => item.question))
-    if (test) {
-        // Encontra a resposta correspondente
-        const match = faq[test.index]//.find(item => normalizeQuestion(item.question) === normalizeQuestion(question));
-        // return 'ChatResponse: ' + await getDavinciResponse('Humanize e resuma:' + normalizeQuestion(match?.answer))
-        return match.answer;
-    }
-    if (allowResponseGPTQuestion) {
-        return await getDavinciResponse(question)
-    }
-}
-
-function removeWordsQuestion(string) {
-    string = string?.toLowerCase()
-    var words = 'Qual,Quando,Onde,Como,Quem,Por que,porque,Quanto,Que'
-    words = words.toLowerCase()
-    words = words.split(',')
-    for (let index = 0; index < words.length; index++) {
-        string = string?.replace(words[index], '');
-    }
-    return string
-}
 
 function deleteFolderRecursive(folderPath) {
     if (fs.existsSync(folderPath)) {
