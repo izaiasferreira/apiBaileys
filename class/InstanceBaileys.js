@@ -2,6 +2,7 @@ require('dotenv').config();
 const makeWASocket = require('@whiskeysockets/baileys').default
 const { useMultiFileAuthState, DisconnectReason, fetchLatestBaileysVersion, Browsers } = require('@whiskeysockets/baileys')
 const { checkPath } = require('../utils/check.js')
+const path = require('path');
 const P = require('pino')
 const fs = require('fs')
 
