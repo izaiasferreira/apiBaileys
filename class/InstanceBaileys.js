@@ -136,10 +136,12 @@ class Baileys {
             return response
         }
     }
-    async sendMessageSticker(id, buffer) {
+    async sendMessageSticker(id,url) {
         if (this._sock) {
             var response = await this._sock.sendMessage(id, {
-                sticker: buffer
+                sticker: {
+                    url: url,
+                }
             }).catch((err) => console.log(err))
             return response
         }
