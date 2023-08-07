@@ -136,6 +136,14 @@ class Baileys {
             return response
         }
     }
+    async sendMessageSticker(id, buffer) {
+        if (this._sock) {
+            var response = await this._sock.sendMessage(id, {
+                sticker: buffer
+            }).catch((err) => console.log(err))
+            return response
+        }
+    }
 
     async sendMessageAudio(id, url, isNew) {
         if (this._sock) {
