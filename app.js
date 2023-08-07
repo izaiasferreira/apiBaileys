@@ -81,8 +81,8 @@ app.post('/sendMessageImage', async (req, res) => {
 });
 app.post('/sendMessageSticker', async (req, res) => {
     var data = req.body
-    if (globalVars.instances && data?.id && data?.text && data?.url) {
-        var response = await globalVars.instances.sendMessageSticker(data.id, data.text, data.url)
+    if (globalVars.instances && data?.id && data?.url) {
+        var response = await globalVars.instances.sendMessageSticker(data.id, data.url)
         res.status(200).json(response).end()
     } else {
         res.status(400).end()
