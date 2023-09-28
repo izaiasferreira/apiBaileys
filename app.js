@@ -258,12 +258,15 @@ function formatPhoneNumber(phoneNumber, ddis) {
     const verifyTwo = ddis.map((ddi) => ddi.code).includes(ddiTwo);
 
     if (remainder.length === 5 && (verifyOne || verifyTwo) && ddd.length <= 3 && ddd.length > 1) {
+        console.log(ddi + ddd + number + string)
         return ddi + ddd + number + string;
     } else if (remainder.length === 4 && (verifyOne || verifyTwo) && ddd.length <= 3 && ddd.length > 1) {
+        console.log(ddi + ddd + number + string)
         return ddi + ddd + number + string;
     } else if (remainder.length === 3 && verifyOne && ddd.length <= 3 && ddd.length > 1) {
+        console.log(ddi + ddd + number + string)
         return ddi + ddd + number + string;
     }
-
+    console.log(false);
     return false;
 }
